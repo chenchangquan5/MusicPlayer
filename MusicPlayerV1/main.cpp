@@ -1,9 +1,14 @@
 #include "playerlogic.h"
 #include <QApplication>
 
+#include "connectsqlite.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    ConnectSQLite sql;
+
     PlayerLogic w;
     w.showMainWidget();
 

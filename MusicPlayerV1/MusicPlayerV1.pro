@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui multimedia
+QT       += core gui multimedia sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -26,7 +26,8 @@ INCLUDEPATH += $$PWD/include
 include(filedata/filedata.pri)
 include(mainmenu/mainmenu.pri)
 include(widgets/widgets.pri)
-include(miniwidget/miniwidget.pri);
+include(miniwidget/miniwidget.pri)
+include(wlogin/wlogin.pri)
 
 SOURCES += main.cpp\
     playerlogic.cpp

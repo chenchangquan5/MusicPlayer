@@ -12,6 +12,7 @@ PlayerLogic::PlayerLogic(QObject *parent) : QObject(parent)
     initTimingSettings();
     initPlayList();
     initPlayer();
+    initLogin();
 }
 
 PlayerLogic::~PlayerLogic()
@@ -41,6 +42,8 @@ void PlayerLogic::initMainWidget(void)
             this,SLOT(slotNormalToMini()));
     connect(m_mainWidget,SIGNAL(signalCustomContexMenuRequested(int,int)),
             this,SLOT(slotCustomContexMenuRequested(int,int)));
+    connect(m_mainWidget,SIGNAL(signalLogin()),
+            this,SLOT(slotLogin()));
 }
 
 void PlayerLogic::showMainWidget(void)
@@ -255,6 +258,7 @@ void PlayerLogic::slotControlPrev(void)
     }
 }
 
+//播放模式
 void PlayerLogic::slotControlPlayMode(int index)
 {
     m_playMode = index;
@@ -315,23 +319,27 @@ void PlayerLogic::slotControlVolume(int volume)
     m_player->setVolume(volume);
 }
 
+//显示设置界面
 void PlayerLogic::slotControlSetting()
 {
     m_settingsDialog->show();
 }
 
+//转到迷你界面
 void PlayerLogic::slotNormalToMini()
 {
     m_mainWidget->hide();
     m_miniWidget->show();
 }
 
+//转回主界面
 void PlayerLogic::slotMiniToNormal()
 {
     m_miniWidget->hide();
     m_mainWidget->show();
 }
 
+//菜单界面
 void PlayerLogic::slotCustomContexMenuRequested(int pos_x, int pos_y)
 {
     m_menu = new QMenu;
@@ -376,12 +384,25 @@ void PlayerLogic::slotShowTimingSettings(void)
     m_timingSettings->show();
 }
 
+//定时停止播放
 void PlayerLogic::slotTimingSettingsToTimingStop(void)
 {
     m_player->stop();
 }
 
+//定时开始播放
 void PlayerLogic::slotTimingSettingsToTimingPlay(void)
 {
     m_player->play();
+}
+
+void PlayerLogic::initLogin()
+{
+    m_login = new Login;
+}
+
+//跳转到登陆界面
+void PlayerLogic::slotLogin()
+{
+    m_login->show();
 }
