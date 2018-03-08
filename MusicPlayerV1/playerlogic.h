@@ -11,6 +11,7 @@
 #include "songfiles.h"
 #include "miniwidget.h"
 #include "timingsettings.h"
+#include "login.h"
 
 
 class PlayerLogic : public QObject
@@ -35,6 +36,7 @@ public slots:
     void slotShowTimingSettings(void);
     void slotTimingSettingsToTimingStop(void);
     void slotTimingSettingsToTimingPlay(void);
+    void slotLogin(void);
 
 public:
     explicit PlayerLogic(QObject *parent = 0);
@@ -51,6 +53,7 @@ private slots:
 
 private:
 
+    //设置界面
     SettingsDialog *m_settingsDialog;
     void initSettingsDialog(void);
 
@@ -70,6 +73,7 @@ private:
     QMediaPlaylist *m_playList;
     void initPlayList(void);
 
+    //初始化迷你界面
     MiniWidget *m_miniWidget;
     void initMiniWidget(void);
 
@@ -82,6 +86,9 @@ private:
     //初始化定时设置界面
     TimingSettings *m_timingSettings;
     void initTimingSettings(void);
+
+    Login *m_login;
+    void initLogin(void);
 };
 
 #endif // PLAYERLOGIC_H

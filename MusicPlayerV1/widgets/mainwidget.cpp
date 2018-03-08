@@ -248,4 +248,7 @@ void MainWidget::on_pb_mini_clicked()
     emit  signalNormalToMini();
 }
 
-
+void MainWidget::on_pb_login_clicked()
+{
+    emit signalLogin();
+}

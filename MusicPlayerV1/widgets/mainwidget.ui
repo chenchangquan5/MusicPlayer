@@ -594,6 +594,12 @@
           <property name="enabled">
            <bool>true</bool>
           </property>
+          <property name="minimumSize">
+           <size>
+            <width>30</width>
+            <height>26</height>
+           </size>
+          </property>
           <property name="maximumSize">
            <size>
             <width>30</width>

@@ -26,6 +26,7 @@ signals:
     void signalCustomContexMenuRequested(int pos_x, int pos_y);
     void signalCloseSettingsDialog(void);
     void signalCloseTimingSettings(void);
+    void signalLogin(void);
 
 public:
     explicit MainWidget(QWidget *parent = 0);
@@ -63,6 +64,8 @@ private slots:
 
     void on_pb_setting_clicked(); 
     void on_pb_mini_clicked();
+
+    void on_pb_login_clicked();
 
 private:
     Ui::MainWidget *ui;
