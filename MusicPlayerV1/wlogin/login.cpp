@@ -29,7 +29,7 @@ Login::~Login()
 void Login::initWindow()
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setWindowFlag(Qt::WindowStaysOnTopHint);
+//    this->setWindowFlag(Qt::WindowStaysOnTopHint);
 
     //暗注释
     ui->cb_id->setEditable(true);

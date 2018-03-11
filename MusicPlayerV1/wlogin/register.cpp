@@ -24,7 +24,7 @@ Register::~Register()
 void Register::initWindow()
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
-    this->setWindowFlag(Qt::WindowStaysOnTopHint);
+//    this->setWindowFlag(Qt::WindowStaysOnTopHint);
 
     //暗注释
     ui->le_id->setPlaceholderText(tr("请输入手机号或邮箱"));
