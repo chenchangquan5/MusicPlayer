@@ -5,6 +5,7 @@
 
 #include <QMessageBox>
 #include <QHBoxLayout>
+#include <QRegExp>
 #include <QDebug>
 
 Login::Login(QWidget *parent) :
@@ -28,11 +29,12 @@ Login::~Login()
 void Login::initWindow()
 {
     this->setWindowFlags(Qt::FramelessWindowHint);
+    this->setWindowFlag(Qt::WindowStaysOnTopHint);
 
     //暗注释
     ui->cb_id->setEditable(true);
     QLineEdit *lineEdit = ui->cb_id->lineEdit();
-    lineEdit->setPlaceholderText(tr("账号"));
+    lineEdit->setPlaceholderText(tr("手机号"));
     ui->le_pswd->setPlaceholderText(tr("密码"));
 
 //    //密码框中的小键盘按钮
@@ -57,23 +59,60 @@ void Login::on_pb_enter_clicked()
     if(ui->cb_id->currentText() == NULL)          //未输入账号的情况
     {
         QMessageBox msgBox;
-        msgBox.setText("请输入账号!!!");
+        msgBox.setText("请输入手机号或邮箱!!!");
         msgBox.exec();
     }else if (info.getID() != ui->cb_id->currentText()) //输入的账号数据库中没有
     {
-        QMessageBox msgBox;
-        msgBox.setText("您输入的账号是空号，请您重新输入账号\n"
-                       "或者去注册新的账号!!!");
-        msgBox.exec();
+        QRegExp number("^13[0-9]{1}[0-9]{8}|^15[0-3|5-9]{1}[0-9]{8}"
+                     "|^18[0-9]{1}[0-9]{8}|^147{1}[0-9]{8}");
+
+        QRegExp email("^[a-z|0-9]+([._\\-]*[a-z|0-9])*"
+                      "@([a-z|0-9]+[-a-z0-9]*[a-z0-9]+.)(com|cn|net)+$");
+
+        //读取字符串并与正则表达式比对
+        if(number.exactMatch(ui->cb_id->currentText()) || email.exactMatch(ui->cb_id->currentText()))
+        {
+            //通过检测含有"@"的字符串来判断是否为邮箱
+            if(ui->cb_id->currentText().contains("@",Qt::CaseSensitive))
+            {
+                QMessageBox msgBox;
+                msgBox.setText("您输入的邮箱未注册，\n"
+                               "请您转到注册界面去注册!!!");
+                msgBox.exec();
+            }else
+            {
+                QMessageBox msgBox;
+                msgBox.setText("您输入的手机号未注册，\n"
+                               "请您转到注册界面去注册!!!");
+                msgBox.exec();
+            }
+        }else
+        {
+            if(ui->cb_id->currentText().contains("@",Qt::CaseSensitive))
+            {
+                QMessageBox msgBox;
+                msgBox.setText("您输入的邮箱有误！");
+                msgBox.exec();
+            }else
+            {
+                QMessageBox msgBox;
+                msgBox.setText("您输入的手机号有误！");
+                msgBox.exec();
+            }
+        }
     }else
     {
         if(info.getPswd() == ui->le_pswd->text()) //账号和密码均正确
         {
             this->hide();
+
+            QMessageBox msgBox;
+            msgBox.setText("登录成功！");
+            msgBox.exec();
         }else if(ui->le_pswd->text() == NULL)     //未输入密码
         {
             QMessageBox msgBox;
-            msgBox.setText("请输入密码");
+            msgBox.setText("请输入密码！");
             msgBox.exec();
         }else                                     //密码错误
         {
@@ -98,10 +137,16 @@ void Login::on_pb_enter_clicked()
             }
         }
     }
+
+    ui->cb_id->clear();
+    ui->le_pswd->clear();
 }
 
 void Login::on_pb_register_clicked()
 {
+    ui->cb_id->clear();
+    ui->le_pswd->clear();
+
     this->hide();
     m_register->show();
 }

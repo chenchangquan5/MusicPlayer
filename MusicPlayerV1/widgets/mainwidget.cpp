@@ -159,7 +159,7 @@ void MainWidget::mousePressEvent(QMouseEvent *ev)
         emit signalCustomContexMenuRequested(ev->globalX(), ev->globalY());
     }
 }
-//当按下鼠标左键时，移动左窗体
+//当按下鼠标左键时，移动左窗体，如果此时为最大化则变为正常
 void MainWidget::mouseMoveEvent(QMouseEvent *ev)
 {
     if(isMaximized())
